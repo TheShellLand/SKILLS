@@ -22,4 +22,19 @@ Refer to `SKILLS.md` for the library of skills available for use.
 When a new skill is mastered or a better way of doing something is discovered:
 1. Update the corresponding section in `AGENTS.md`.
 2. Update the description to include specific examples of "Best" vs "Avoid" patterns.
-3. Ensure any cross-references (e.g., between Git and Documentation logic) are maintained.
+3. Ensure any cross-references (e.g., between Git and Documentation logic) are 
+---
+
+## Development Environment
+Source ~/venv/automonisaur/bin/activate before running Python code if it exists.
+
+## Git Tasks when commiting changes
+
+- When executing git commands via shell, ensure multi-line messages are passed with actual line breaks (e.g., using real  multiline string blocks) rather than literal "\\n" escapes which will be rendered literally in commit logs.
+
+- create a descriptive git commit using git diff
+- use this specific format for all commits:
+
+[component] [Descriptive primary action/sentence]
+
+[A detailed description or paragraph explaining exactly what was changed and why.]
