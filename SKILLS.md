@@ -15,6 +15,5 @@ Each skill lives in its own lowercase, hyphenated folder with a `SKILL.md` entry
 | [manage-herdr](manage-herdr/SKILL.md) | Explicitly requested Herdr terminal or agent control. |
 | [run-pi-prompt](run-pi-prompt/SKILL.md) | Running a single noninteractive pi prompt. |
 | [show-google-health-nutrition](show-google-health-nutrition/SKILL.md) | Showing daily nutrient and water progress with food sources. |
-| [create-vertical-timeline](create-vertical-timeline/SKILL.md) | Formatting schedules or event sequences as vertical text timelines. |
 
 Follow applicable `AGENTS.md` instructions and read the relevant skill for the task. Keep workflow instructions in their skill rather than duplicating them here.
