@@ -13,4 +13,4 @@ Open the requested `.docx` file with `docx.Document`. Extract paragraph and tabl
 
 Best: read the document and return the requested text. Avoid: overwriting the input during extraction.
 
-The adjacent `read_docx.py` helper converts plain text to a Word document; it does not extract DOCX text. Do not use it for extraction. Legacy `.doc` files require a separate conversion workflow.
+For converting plain text into a new Word document, use [create-docx-from-text](../create-docx-from-text/SKILL.md). Legacy `.doc` files require a separate conversion workflow.

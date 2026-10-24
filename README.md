@@ -11,6 +11,8 @@ Each skill lives in its own lowercase, hyphenated folder with a `SKILL.md` entry
 | [write-project-documentation](write-project-documentation/SKILL.md) | Writing README files or API documentation. |
 | [write-unit-tests](write-unit-tests/SKILL.md) | Testing business logic with isolated dependencies. |
 | [manage-harness-tasks](manage-harness-tasks/SKILL.md) | Managing backlog work with harness task tools. |
+| [capture-browser-screenshot](capture-browser-screenshot/SKILL.md) | Capturing website screenshots with Selenium helpers. |
+| [create-docx-from-text](create-docx-from-text/SKILL.md) | Creating Word documents from UTF-8 text files. |
 | [read-docx](read-docx/SKILL.md) | Extracting text from Word documents. |
 | [manage-herdr](manage-herdr/SKILL.md) | Explicitly requested Herdr terminal or agent control. |
 | [run-pi-prompt](run-pi-prompt/SKILL.md) | Running a single noninteractive pi prompt. |
