@@ -1,11 +1,11 @@
-# Repository Instructions
+# Skills
 
-This repository maintains reusable agent skills. Consult [README.md](README.md) and read the relevant skill before performing a matching task.
+Reusable agent skills may be available in the current directory or installed in `/SKILLS.md`, an absolute directory separate from the project repository.
 
-## Skill Library Changes
+Before performing a task:
 
-Follow [maintain-skills](maintain-skills/SKILL.md) when creating, updating, renaming, or reorganizing skills. Keep task-specific procedures in skills and repository-wide instructions in this file.
+1. Recursively search the current directory for `SKILL.md` files. Also search `/SKILLS.md` recursively if that directory exists.
+2. Use the skills' frontmatter names and descriptions to identify skills relevant to the task. `/SKILLS.md/README.md`, when present, provides an optional discovery index.
+3. Read and follow the applicable skills before proceeding. Resolve their relative references from the directory containing the skill's `SKILL.md`.
 
-## Git Commits
-
-Create descriptive commits from the diff using [write-git-commit-messages](write-git-commit-messages/SKILL.md), which defines this repository's commit format and message-handling rules.
+Load only relevant skills and supporting references. If no skill applies, proceed with the task using the project's instructions and available tools.
