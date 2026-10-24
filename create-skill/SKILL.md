@@ -56,4 +56,4 @@ Check that YAML parses, required name and description fields are present, the fo
 
 Review the instructions against a representative request and a relevant edge case, such as missing input or a request outside the intended scope. Run added or changed scripts when needed to verify their behavior. Scale verification to the workflow's complexity and risk.
 
-In this repository, add an entry to `SKILLS.md` and update relevant routing links without duplicating the workflow. Review the diff and whitespace checks, then report the created path, verification performed, and any remaining limitations.
+In this repository, add an entry to `README.md` and update relevant routing links without duplicating the workflow. Review the diff and whitespace checks, then report the created path, verification performed, and any remaining limitations.

@@ -1,6 +1,6 @@
 # Repository Instructions
 
-This repository maintains reusable agent skills. Consult [SKILLS.md](SKILLS.md) and read the relevant skill before performing a matching task.
+This repository maintains reusable agent skills. Consult [README.md](README.md) and read the relevant skill before performing a matching task.
 
 ## Skill Library Changes
 

@@ -20,7 +20,7 @@ Put optional supported metadata under `metadata`. Add scripts, references, or as
 
 ## Instruction Placement
 
-Keep repository-wide policies and skill-routing instructions in `AGENTS.md`. Keep `SKILLS.md` as a linked index rather than duplicating procedures there. Put reusable task instructions in the relevant skill.
+Keep repository-wide policies and skill-routing instructions in `AGENTS.md`. Keep `README.md` as a linked index rather than duplicating procedures there. Put reusable task instructions in the relevant skill.
 
 When a recurring workflow is learned or improved, update the corresponding skill or create a focused skill if none fits. Include concrete Best and Avoid examples when they clarify a meaningful decision. Preserve user intent, real constraints, and existing authorization boundaries.
 
