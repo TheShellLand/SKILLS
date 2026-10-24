@@ -1,9 +1,9 @@
 ---
-name: code-maintenance
+name: maintain-code
 description: Inspect, modify, refactor, or debug repository code while checking dependencies and verifying changes.
 ---
 
-# Code Maintenance
+# Maintain Code
 
 This document defines a library of standardized skills, protocols, and best practices for various tasks performed by AI agents within this project. When a task falls into one or more of these categories, follow the specified "Best" patterns and avoid the listed pitfalls.
 
@@ -43,8 +43,8 @@ This document defines a library of standardized skills, protocols, and best prac
 
 ## Documentation & Reporting
 
-For commits, follow [git-commit-messages](../git-commit-messages/SKILL.md).
+For commits, follow [write-git-commit-messages](../write-git-commit-messages/SKILL.md).
 
-For harness tasks, follow [task-lifecycle](../task-lifecycle/SKILL.md) when its tools are available.
+For harness tasks, follow [manage-harness-tasks](../manage-harness-tasks/SKILL.md) when its tools are available.
 
 ---

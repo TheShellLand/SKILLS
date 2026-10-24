@@ -1,8 +1,13 @@
-# google gealth daily nutrient and water intake progress
+---
+name: show-google-health-nutrition
+description: Show daily Google Health nutrient and water intake progress with percentages and logged food sources when the user requests a nutrition summary.
+---
 
-shows google health daily nutrition in a nice progress bar with a list of what foods you ate to get those nutrients 
+# Show Google Health Nutrition
 
-## prompt 
+shows google health daily nutrition in a nice progress bar with a list of what foods you ate to get those nutrients
+
+## prompt
 
 Please show my daily nutrition progress for today as a Markdown list sorted from highest percentage to lowest.
 
@@ -16,4 +21,3 @@ Include:
 • Essential minerals (Calcium, Iron, Potassium, Sodium)
 
 Underneath nutrients with tracked sources, add a nested bulleted list showing the foods I got them from. If a nutrient has no logged sources or minimal amounts, do not include any nested bullet points under it.
-

@@ -1,9 +1,9 @@
 ---
-name: git-commit-messages
+name: write-git-commit-messages
 description: Write descriptive Git commit messages from the diff when preparing or making commits. Follow repository-specific conventions.
 ---
 
-# Git Commit Messages
+# Write Git Commit Messages
 
 Inspect `git status` and the relevant diff. Describe the actual changes and why they were made. Commit only authorized changes and preserve unrelated work.
 

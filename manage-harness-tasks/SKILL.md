@@ -1,9 +1,9 @@
 ---
-name: task-lifecycle
+name: manage-harness-tasks
 description: Manage backlog work in a harness that exposes TaskClaim, TaskHeartbeat, and TaskUpdate. Use only when those tools are available.
 ---
 
-# Task Lifecycle
+# Manage Harness Tasks
 
 1. Select the next authorized backlog task.
 2. Claim it with `TaskClaim`.

@@ -1,6 +1,11 @@
-# visualizing a timeline in a vertical view
+---
+name: create-vertical-timeline
+description: Create a vertical plain-text timeline from schedules, project phases, or event sequences using chronological blocks and directional arrows.
+---
 
-Act as an expert technical writer and data visualizer. Create a vertical textual timeline using clean ASCII characters, lines, and directional arrows based on the information provided below. 
+# Create Vertical Timeline
+
+Act as an expert technical writer and data visualizer. Create a vertical textual timeline using clean ASCII characters, lines, and directional arrows based on the information provided below.
 
 Follow these formatting rules strictly:
 1. Use central vertical timeline poles with branch pathways (e.g., │, 🚨, ▼, ──►) to visually separate stages.

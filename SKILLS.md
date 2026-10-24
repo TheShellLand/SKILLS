@@ -4,13 +4,15 @@ Each skill lives in its own lowercase, hyphenated folder with a `SKILL.md` entry
 
 | Skill | Use when |
 | --- | --- |
-| [git-commit-messages](git-commit-messages/SKILL.md) | Preparing or making Git commits. |
-| [code-maintenance](code-maintenance/SKILL.md) | Inspecting, modifying, refactoring, or debugging code. |
-| [project-documentation](project-documentation/SKILL.md) | Writing README files or API documentation. |
-| [unit-testing](unit-testing/SKILL.md) | Testing business logic with isolated dependencies. |
-| [task-lifecycle](task-lifecycle/SKILL.md) | Managing backlog work with harness task tools. |
-| [reading-docx-file](reading-docx-file/SKILL.md) | Extracting text from Word documents. |
-| [herdr](herdr/SKILL.md) | Explicitly requested Herdr terminal or agent control. |
+| [write-git-commit-messages](write-git-commit-messages/SKILL.md) | Preparing or making Git commits. |
+| [maintain-code](maintain-code/SKILL.md) | Inspecting, modifying, refactoring, or debugging code. |
+| [write-project-documentation](write-project-documentation/SKILL.md) | Writing README files or API documentation. |
+| [write-unit-tests](write-unit-tests/SKILL.md) | Testing business logic with isolated dependencies. |
+| [manage-harness-tasks](manage-harness-tasks/SKILL.md) | Managing backlog work with harness task tools. |
+| [read-docx](read-docx/SKILL.md) | Extracting text from Word documents. |
+| [manage-herdr](manage-herdr/SKILL.md) | Explicitly requested Herdr terminal or agent control. |
 | [run-pi-prompt](run-pi-prompt/SKILL.md) | Running a single noninteractive pi prompt. |
+| [show-google-health-nutrition](show-google-health-nutrition/SKILL.md) | Showing daily nutrient and water progress with food sources. |
+| [create-vertical-timeline](create-vertical-timeline/SKILL.md) | Formatting schedules or event sequences as vertical text timelines. |
 
 Follow applicable `AGENTS.md` instructions and read the relevant skill for the task. Keep workflow instructions in their skill rather than duplicating them here.

@@ -1,9 +1,9 @@
 ---
-name: unit-testing
+name: write-unit-tests
 description: Write or update unit tests for core business logic while isolating network and database dependencies.
 ---
 
-# Unit Testing
+# Write Unit Tests
 
 Prioritize meaningful coverage of core business logic and changed behavior. Follow the existing test framework and conventions. Update tests before or alongside code changes where appropriate.
 

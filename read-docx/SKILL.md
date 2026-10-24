@@ -1,9 +1,9 @@
 ---
-name: reading-docx-file
+name: read-docx
 description: Extract text from existing Word .docx files using python-docx. Use for document inspection, not legacy .doc files or text-to-document conversion.
 ---
 
-# Read DOCX Files
+# Read DOCX
 
 Use the configured Python environment. Follow repository setup instructions, including sourcing `~/venv/automonisaur/bin/activate` before running Python if it exists.
 
