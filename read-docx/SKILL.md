@@ -5,7 +5,7 @@ description: Extract text from existing Word .docx files using python-docx. Use 
 
 # Read DOCX
 
-Use the configured Python environment. Follow repository setup instructions, including sourcing `~/venv/automonisaur/bin/activate` before running Python if it exists.
+Use the configured Python environment and follow the Python setup instructions in the applicable `AGENTS.md`.
 
 Check whether `python-docx` is installed in that environment. If missing, install it with the environment's package manager, following project dependency conventions.
 

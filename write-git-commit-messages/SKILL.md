@@ -7,7 +7,7 @@ description: Write descriptive Git commit messages from the diff when preparing 
 
 Inspect `git status` and the relevant diff. Describe the actual changes and why they were made. Commit only authorized changes and preserve unrelated work.
 
-Follow the target repository's `AGENTS.md` commit convention. This repository requires:
+Use the following format in this skill-library repository. When applying this skill in another repository, follow that repository's explicit commit convention first:
 
 ```text
 [component] Descriptive primary action

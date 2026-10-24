@@ -4,6 +4,7 @@ Each skill lives in its own lowercase, hyphenated folder with a `SKILL.md` entry
 
 | Skill | Use when |
 | --- | --- |
+| [maintain-skills](maintain-skills/SKILL.md) | Creating, updating, renaming, or reorganizing skills. |
 | [write-git-commit-messages](write-git-commit-messages/SKILL.md) | Preparing or making Git commits. |
 | [maintain-code](maintain-code/SKILL.md) | Inspecting, modifying, refactoring, or debugging code. |
 | [write-project-documentation](write-project-documentation/SKILL.md) | Writing README files or API documentation. |
