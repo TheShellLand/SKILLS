@@ -1,5 +1,5 @@
 ---
-name: pi-once
+name: run-pi-prompt
 description: Run one noninteractive prompt with the pi coding agent and return its output. Use when the user requests a single pi run.
 metadata:
   version: '1.0.0'
@@ -7,7 +7,7 @@ metadata:
   tags: 'agent, pi'
 ---
 
-# Run Pi Once
+# Run Pi Prompt
 
 Execute the requested prompt in print mode:
 

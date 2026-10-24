@@ -11,6 +11,6 @@ Each skill lives in its own lowercase, hyphenated folder with a `SKILL.md` entry
 | [task-lifecycle](task-lifecycle/SKILL.md) | Managing backlog work with harness task tools. |
 | [reading-docx-file](reading-docx-file/SKILL.md) | Extracting text from Word documents. |
 | [herdr](herdr/SKILL.md) | Explicitly requested Herdr terminal or agent control. |
-| [pi-once](pi-once/SKILL.md) | Running a single noninteractive pi prompt. |
+| [run-pi-prompt](run-pi-prompt/SKILL.md) | Running a single noninteractive pi prompt. |
 
 Follow applicable `AGENTS.md` instructions and read the relevant skill for the task. Keep workflow instructions in their skill rather than duplicating them here.
