@@ -5,7 +5,7 @@ description: Create, update, rename, or reorganize reusable agent skills and mai
 
 # Maintain Skills
 
-Read the existing skill and its references before changing it. Use available skill-creation guidance when creating or substantially revising a skill.
+Read the existing skill and its references before changing it. For a new skill, follow [create-skill](../create-skill/SKILL.md); use applicable skill-creation guidance when substantially revising an existing skill.
 
 ## Structure and Discovery
 
