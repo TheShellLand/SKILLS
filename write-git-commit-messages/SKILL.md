@@ -10,13 +10,27 @@ changes and preserve unrelated work.
 
 ## Choose exactly one format
 
-Select the first matching rule below, then stop selecting. The target repository is the repository receiving the
-commit, not necessarily the repository where this skill is stored.
+The target repository is the repository receiving the commit. Identify it before choosing a format:
+
+1. Run `git rev-parse --show-toplevel` in the directory receiving the commit to get the target repository root.
+2. Run `git -C <skill-directory> rev-parse --show-toplevel`, replacing `<skill-directory>` with the actual directory
+   containing this `SKILL.md`, to get the skill-library repository root. Compare resolved absolute paths.
+3. If the roots differ, read the target repository's applicable instructions and commit guidance before selecting
+   a format. Do not infer a convention from the repository's name or working directory alone.
+
+If either root cannot be determined, inspect the available repository metadata and instructions to resolve its
+identity. A failed command is not evidence that the repositories differ.
+
+Select the first matching rule below, then stop selecting:
 
 1. **Target is this skill-library repository:** use Format A. This skill explicitly defines its commit convention;
    do not use the Conventional Commits fallback here.
 2. **Target is another repository with an explicit commit convention:** follow that repository's convention.
 3. **Target is another repository with no explicit commit convention:** use Format B.
+
+Example: if the target root is `/root/brain` and the skill-library root is `/SKILLS`, they are different repositories.
+Read `/root/brain`'s applicable instructions. Use its explicit convention if present; otherwise use Format B.
+If both roots are `/root/brain`, use Format A even though the directory is named `brain`.
 
 ## Format A: This skill-library repository
 
