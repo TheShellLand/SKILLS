@@ -28,6 +28,9 @@ available.
 
 ## Terminal Command Rules
 
+- Run Bash scripts with `bash /path/to/script.sh`, not `./script.sh` or a bare script path. For POSIX shell
+  scripts, use `sh /path/to/script.sh`. Use the script's required interpreter explicitly, including in Git editor
+  commands. Do not rely on executable permissions or shebang execution, or use `chmod +x` as a workaround.
 - Keep each terminal execution call on one line.
 - Never use literal `\n` sequences or escaped newlines to separate commands.
 - Use `&&` when the next command requires the previous command to succeed.

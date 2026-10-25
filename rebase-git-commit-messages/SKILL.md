@@ -54,6 +54,8 @@ bash /absolute/path/to/rebase-git-commit-messages/scripts/reword-commit.sh COMMI
 ```
 
 Replace the example text, helper path, and `COMMIT` with inspected values, then execute the command through tools.
+Always invoke this helper with `bash`, even if it is executable. Do not run `./scripts/reword-commit.sh` or a bare
+helper path; direct execution may fail with a shebang interpreter permission error.
 The helper creates a backup, supplies the rebase todo through `GIT_SEQUENCE_EDITOR`, and amends the selected commit
 through an `exec` step. It verifies each replayed tree, author, and message and prints actual old-to-new IDs.
 It supports root and empty commits; it rejects dirty worktrees, existing operations, detached HEAD, shallow clones,
@@ -79,14 +81,14 @@ Do not use `HEAD~N` unless the selected range actually establishes that count.
    `--only` keeps staged changes out of the amendment and `--allow-empty` preserves intentionally empty commits.
    Disable hooks only for these message amendments, where hooks could mutate staged content; if repository policy
    requires hooks, honor it and verify they do not change content. Do not change persistent Git configuration.
-3. Create an executable sequence-editor script that copies the prepared todo to the filename Git passes as `$1`.
+3. Create a POSIX shell sequence-editor script that copies the prepared todo to the filename Git passes as `$1`.
    Quote paths for both shell layers: Git invokes the editor command through a shell, and `exec` lines are shell
    commands.
    Never interpolate replacement message text into either script.
 4. Run with command-scoped editor variables, using the actual prepared editor path:
 
    ```sh
-   GIT_SEQUENCE_EDITOR="<shell-quoted-editor-path>" GIT_EDITOR=true \
+   GIT_SEQUENCE_EDITOR="sh <shell-quoted-editor-path>" GIT_EDITOR=true \
      git rebase -i --keep-empty --empty=keep --no-autosquash --no-update-refs <base>
    ```
 
