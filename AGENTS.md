@@ -17,3 +17,11 @@ instructions and available tools.
 
 Before preparing or making a Git commit, find and read the `write-git-commit-messages` skill in the locations above, if
 available.
+
+## Terminal Command Rules
+
+- Keep each terminal execution call on one line.
+- Never use literal `\n` sequences or escaped newlines to separate commands.
+- Use `&&` when the next command requires the previous command to succeed.
+- Use `;` only when commands should run independently.
+- For multiline scripts or content, use a file-writing tool, then execute the saved file.
