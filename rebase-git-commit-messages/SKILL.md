@@ -9,43 +9,25 @@ Rewrite only the requested messages. Creating this skill or drafting replacement
 the current repository. When the user requests the rewrite, carry it through within that scope without repeatedly
 asking for confirmation. Publishing rewritten history is a separate action.
 
-## Systemic Integrity Over Heuristic Shortcuts
+When asked to reword commits, inspect, rewrite, and verify them through tools during the task. If execution is blocked,
+report the exact limitation and distinguish drafted messages from applied changes.
 
-The prescribed workflow is part of correctness. Follow every applicable requirement in this skill and the referenced
-commit-message skill; general Git habits are not grounds for skipping or replacing a required step. These requirements
-encode this environment's terminal constraints, message conventions, preservation checks, and recovery safeguards.
-A rewrite that produces the desired subject but bypasses those requirements is not a compliant completion.
+Choose the execution path after inspecting the affected history:
 
-Before changing history, identify the applicable workflow and its required preparation, execution, and verification
-steps. Use the bundled helper for one selected commit in a linear range; use the scripted procedure below for multiple
-selected commits or merges. Do not substitute an editor-driven `git rebase -i`, a standalone `git commit --amend`, or
-reset-and-recommit because it is familiar, shorter, or commonly recommended. The scripted `git rebase -i` invocation
-specified below remains required where applicable.
+| Affected history | Required procedure |
+| --- | --- |
+| One selected commit, linear range | [Single-commit helper](#single-commit-helper) |
+| Multiple selected commits, linear range | [Scripted rebase](#scripted-rebase) |
+| Any affected merge commits | [Scripted rebase](#scripted-rebase) with [merge handling](#merge-history) |
 
-Execute the applicable steps without asking the user to reconfirm requirements already established here. If a required
-step is unsupported, fails, or conflicts with a higher-priority instruction or an explicit user override, report the
-specific constraint and follow the recovery guidance; do not silently invent an alternative or claim full compliance.
-Before reporting completion, check tool evidence against every applicable requirement, including message format and
-history preservation. Git success alone does not establish compliance.
-
-Best: inspect the target commit, select the required message format, run the prescribed scripted workflow, and verify
-the stored message and every affected commit. Avoid: defaulting to a familiar interactive reword procedure because
-the skill's multi-step workflow seems unnecessarily complex.
-
-## Execute the Requested Work
-
-When asked to fix or reword a commit, use the available tools to inspect, rewrite, and verify it during this task.
-A proposed message, a command block, or a statement such as "I am performing a rebase" does not complete the request.
-Keep progress updates brief and continue to tool execution. If execution is unavailable or blocked, state the exact
-limitation and distinguish any drafted message from an applied change. Never claim a rebase ran without tool evidence.
+Use scripted interactive-rebase machinery for all paths. Do not substitute an editor-driven rebase, a standalone
+amendment, or reset-and-recommit.
 
 ## Inspect and Prepare
 
 - Read the target repository's instructions and [write-git-commit-messages](../write-git-commit-messages/SKILL.md).
-  Complete that skill's repository-root comparison and format selection before drafting replacements. Rewriting an
-  existing message uses the same convention as creating a commit; the old message is not evidence of the required
-  format. In this skill-library repository, select Format A even if the existing subject uses Conventional Commits
-  or the checkout has another name, such as `brain`. Do not fall back to Format B because Git accepted the old message.
+  Complete its repository-root comparison and format selection before drafting replacements. The old message is not
+  evidence of the required format; rewriting uses the same convention as creating a commit.
   Inspect each selected commit's full message and diff, rather than the current working-tree diff, to draft its
   replacement.
   Ground the subject and body in `git show --format=fuller <commit>` and the actual patch. Preserve exact filenames,
@@ -65,30 +47,27 @@ limitation and distinguish any drafted message from an applied change. Never cla
   affected commits; mention shared-history implications when relevant. Do not infer permission to push from permission
   to rewrite locally. Rewriting also invalidates existing commit signatures; follow any repository signing requirements.
 
-## Script the Rebase
+## Single-Commit Helper
 
 For one selected commit in a linear range, use the bundled
-[reword-commit.sh](scripts/reword-commit.sh) after completing the inspection above. Run from the target repository:
+[reword-commit.sh](scripts/reword-commit.sh) after completing the inspection above. Run it from the target repository.
+
+Write the complete replacement message to a temporary UTF-8 file outside the worktree using a file-writing tool.
+Use real line breaks and the selected message format. Invoke the helper on one terminal line:
 
 ```sh
-message_file=$(mktemp)
-cat > "$message_file" <<'MESSAGE'
-[component] Describe the inspected change
-
-Explain what the actual commit changed and why.
-MESSAGE
-bash /absolute/path/to/rebase-git-commit-messages/scripts/reword-commit.sh COMMIT "$message_file"
+bash '/absolute/path/to/rebase-git-commit-messages/scripts/reword-commit.sh' COMMIT '/absolute/path/to/message.txt'
 ```
 
-Replace the example text, helper path, and `COMMIT` with inspected values, then execute the command through tools.
-Always invoke this helper with `bash`, even if it is executable. Do not run `./scripts/reword-commit.sh` or a bare
-helper path; direct execution may fail with a shebang interpreter permission error.
+Replace the paths and `COMMIT` with the actual helper path, resolved commit ID, and prepared message file.
 The helper creates a backup, supplies the rebase todo through `GIT_SEQUENCE_EDITOR`, and amends the selected commit
 through an `exec` step. It verifies each replayed tree, author, and message and prints actual old-to-new IDs.
 It supports root and empty commits; it rejects dirty worktrees, existing operations, detached HEAD, shallow clones,
 and merge-containing ranges. It retains hooks and repository signing settings; inspect those first if they require
 interaction. It aborts its own failed rebase and retains recovery files on failure. It never pushes.
 Delete the input message file after success. For multiple selected commits or merges, use the procedure below.
+
+## Scripted Rebase
 
 Use Git's interactive-rebase machinery with a scripted sequence editor so no editor or terminal interaction is needed.
 For a linear range, start immediately before the oldest selected commit; use `--root` if it is the root commit.
@@ -105,7 +84,7 @@ exactly two commits. Do not replace the scripted rebase with reset-and-recommit 
 
    ```text
    pick <full-original-id> Original subject
-   exec git -c core.hooksPath=/dev/null commit --amend --only --allow-empty -F '/absolute/path/to/message.txt'
+   exec git -c core.hooksPath=/dev/null commit --amend --only --allow-empty --cleanup=verbatim -F '/absolute/path/to/message.txt'
    ```
 
    The identifiers and path above are illustrative; substitute inspected IDs and shell-quoted absolute paths.
@@ -119,11 +98,12 @@ exactly two commits. Do not replace the scripted rebase with reset-and-recommit 
 4. Run with command-scoped editor variables, using the actual prepared editor path:
 
    ```sh
-   GIT_SEQUENCE_EDITOR="sh <shell-quoted-editor-path>" GIT_EDITOR=true git rebase -i --keep-empty --empty=keep --no-autosquash --no-update-refs <base>
+   GIT_SEQUENCE_EDITOR="sh <shell-quoted-editor-path>" GIT_EDITOR=true git -c rebase.autoStash=false rebase -i --no-rebase-merges --keep-empty --empty=keep --no-autosquash --no-update-refs <base>
    ```
 
    Replace `<base>` with the parent of the oldest selected commit or `--root`. `--no-update-refs` prevents configured
-   automatic updates to other branches. Explicitly disable any configured automatic stashing for this operation.
+   automatic updates to other branches; `rebase.autoStash=false` disables automatic stashing. For merges, replace
+   `--no-rebase-merges` with `--rebase-merges` and follow the merge procedure below.
    Check locally supported options before running; do not silently drop preservation options on older Git versions.
 
 Do not use `reword` with `GIT_EDITOR=true`: it accepts the old message without providing a replacement. Do not use a
@@ -142,7 +122,7 @@ commits, insert it after their `merge -C <original-id>` command. Keep `-C` to av
 Validate all selected commits matched exactly once before allowing the rebase to begin. Merge recreation can change
 resolutions; compare every recreated tree and parent relationship, and abort if message-only preservation fails.
 
-## Handle Stops and Verify
+## Recover from Stops
 
 If a command fails, inspect Git's state before retrying. Do not blindly repeat the rebase, skip commits, or resolve
 content conflicts as part of a message-only request. Abort the rebase started by this workflow if preservation cannot
@@ -153,19 +133,16 @@ Avoid: `git rebase -i <base> || git commit --amend`. A rebase can fail before re
 an unconditional amendment can change the wrong commit. Run recovery separately after inspecting the error,
 current HEAD, and operation state. Report completion only after verification succeeds.
 
+## Verify and Report
+
 After success, compare the original range with the rewritten range in order. Require the same commit count, trees,
 author identities/dates, and topology (mapping old parent IDs to new IDs). Require exact replacement messages for
 selected commits and unchanged messages for all others. Also require the same tip tree and a clean worktree.
 Committer metadata and IDs normally change. A tip-only diff is insufficient: it can hide changed intermediate commits.
 
 Read each selected commit's stored full message with `git show -s --format=%B <new-id>` and check its subject and
-required body against the selected convention. The helper verifies that Git stored the supplied replacement; it
-does not decide whether that replacement follows the repository's message rules. A successful Git command or clean
-`git status` proves neither message compliance nor completion of a requested correction.
-
-Best: for this library, verify `[skills] Clarify rebase instructions and safety checks`, a blank line, and an
-explanatory body in the rewritten commit. Avoid: accepting `docs(skills): clarify rebase instructions and safety
-checks` because the rebase succeeded and the worktree is clean.
+required body against the convention selected by the commit-message skill. The helper checks stored message equality;
+the agent must also verify that the supplied message follows that convention.
 
 If verification fails after completion, retain the backup ref and report the mismatch. Restore only the history this
 workflow changed, after checking for intervening work; never blindly run `reset --hard`.

@@ -29,6 +29,25 @@ Avoid: read an existing local skill and skip the pull because its contents seem 
 Before preparing or making a Git commit, find and read the `write-git-commit-messages` skill in the locations above, if
 available.
 
+## Systemic Integrity Over Heuristic Shortcuts
+
+When a skill applies, its prescribed workflow is part of correctness. Follow every applicable requirement in the
+skill and its referenced instructions. General habits are not grounds for skipping or replacing a required step,
+even when another approach is familiar, shorter, or commonly recommended. Producing the desired result while
+bypassing applicable requirements is not a compliant completion.
+
+Before acting, identify the applicable workflow and its required preparation, execution, and verification steps.
+Execute those steps without asking the user to reconfirm requirements already established by the instructions.
+If a required step is unsupported, fails, or conflicts with a higher-priority instruction or an explicit user override,
+report the specific constraint and follow any applicable recovery guidance. Do not silently invent an alternative or
+claim full compliance.
+
+Before reporting completion, check tool evidence against every applicable requirement. A successful command alone
+does not establish compliance.
+
+Best: read the applicable skill, execute its required workflow, and verify the result against its requirements.
+Avoid: substituting a familiar shortcut because the skill's workflow seems unnecessarily complex.
+
 ## Terminal Command Rules
 
 - Run Bash scripts with `bash /path/to/script.sh`, not `./script.sh` or a bare script path. For POSIX shell
