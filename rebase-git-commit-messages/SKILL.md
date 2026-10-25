@@ -66,6 +66,10 @@ Delete the input message file after success. For multiple selected commits or me
 Use Git's interactive-rebase machinery with a scripted sequence editor so no editor or terminal interaction is needed.
 For a linear range, start immediately before the oldest selected commit; use `--root` if it is the root commit.
 Do not use `HEAD~N` unless the selected range actually establishes that count.
+For message-only changes, keep the existing base and operate on the inspected branch through its tip. Do not use
+`--onto` to guess a range: it changes the replay destination. A positional commit ID as the rebase branch argument
+can leave HEAD detached. Inspect the selected range before execution rather than assuming two supplied IDs mean
+exactly two commits. Do not replace the scripted rebase with reset-and-recommit as an editor workaround.
 
 1. Write each complete replacement message into its own UTF-8 file with real line breaks. Use a file-writing tool or
    quoted heredoc so message text, backticks, and dollar signs cannot become shell code.
@@ -88,8 +92,7 @@ Do not use `HEAD~N` unless the selected range actually establishes that count.
 4. Run with command-scoped editor variables, using the actual prepared editor path:
 
    ```sh
-   GIT_SEQUENCE_EDITOR="sh <shell-quoted-editor-path>" GIT_EDITOR=true \
-     git rebase -i --keep-empty --empty=keep --no-autosquash --no-update-refs <base>
+   GIT_SEQUENCE_EDITOR="sh <shell-quoted-editor-path>" GIT_EDITOR=true git rebase -i --keep-empty --empty=keep --no-autosquash --no-update-refs <base>
    ```
 
    Replace `<base>` with the parent of the oldest selected commit or `--root`. `--no-update-refs` prevents configured
@@ -98,6 +101,9 @@ Do not use `HEAD~N` unless the selected range actually establishes that count.
 
 Do not use `reword` with `GIT_EDITOR=true`: it accepts the old message without providing a replacement. Do not use a
 global editor setting or an unrestricted search-and-replace across history.
+Scripted editors work without an interactive terminal; lack of terminal interaction is not a reason to abandon this
+procedure or change the message format selected by the commit-message skill. `GIT_REBASE_EDITING` is not a standard
+Git editor control; use the documented editor variables above.
 
 ### Merge History
 
@@ -115,6 +121,10 @@ If a command fails, inspect Git's state before retrying. Do not blindly repeat t
 content conflicts as part of a message-only request. Abort the rebase started by this workflow if preservation cannot
 be guaranteed, and report the reason. If an amendment failed, do not assume `rebase --continue` reruns that command;
 verify and perform the intended amendment before continuing with the same command-scoped editor environment.
+
+Avoid: `git rebase -i <base> || git commit --amend`. A rebase can fail before replay begins or stop on a conflict;
+an unconditional amendment can change the wrong commit. Run recovery separately after inspecting the error,
+current HEAD, and operation state. Report completion only after verification succeeds.
 
 After success, compare the original range with the rewritten range in order. Require the same commit count, trees,
 author identities/dates, and topology (mapping old parent IDs to new IDs). Require exact replacement messages for
