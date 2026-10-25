@@ -6,28 +6,35 @@ separate from the project repository.
 `/SKILLS` is a Git repository. When that directory exists, run Git commands against it directly; do not check for
 a `.git` folder or otherwise verify that it is a repository before running the required pull.
 
-Before performing a task:
+## Required workflow for every task
 
-1. If `/SKILLS` exists, run `git -C /SKILLS pull --rebase` before searching for or reading skills and before doing the task.
-   This is required for every task, including commit requests, even when the skill files are already available
-   locally or were read during an earlier task. Local availability does not establish that the skills are current.
-   Do not skip the command to save time or because the task seems possible with cached instructions.
-   If the command fails, report the failure; do not claim the update succeeded. Continue using local skills unless
-   the failure prevents completing the task correctly.
-2. Recursively search the current directory for `SKILL.md` files. Also search `/SKILLS` recursively if that directory
-   exists.
-3. Use the skills' frontmatter names and descriptions to identify skills relevant to the task.
-4. Read and follow the applicable skills before proceeding. Resolve their relative references from the directory
-   containing the skill's `SKILL.md`.
+Perform this preparation once at the start of every task, including requests such as "commit changes" that follow
+earlier edits. It is not required before every individual tool call. A direct task request does not waive these
+requirements; an explicit user override or higher-priority instruction takes precedence.
 
-Load only relevant skills and supporting references. If no skill applies, proceed with the task using the project's
-instructions and available tools.
+1. Select `/SKILLS` if it exists; otherwise select `/tmp/SKILLS`. If the selected directory is missing, clone
+   `https://github.com/TheShellLand/SKILLS.git` into it. Run `git -C <selected-directory> pull --rebase` before
+   searching for or reading skills. Reuse existing directories without checking for a `.git` folder. Treat
+   references to `/SKILLS` in shared instructions as references to the selected directory.
+2. Read and follow the selected directory's `AGENTS.md`. Reading this project's `AGENTS.md` alone is insufficient.
+3. Recursively discover `SKILL.md` files in both the current project and the selected shared directory. These are
+   the two discovery locations, not both `/SKILLS` and `/tmp/SKILLS`.
+4. Inspect skill names and descriptions to identify applicable skills. Read and follow each applicable `SKILL.md`
+   and its required references before executing the task. Resolve relative references from the skill's directory.
+   Discovery or naming a skill alone does not satisfy this requirement.
+5. Execute the task using the applicable preparation, execution, and verification steps. If no skill applies,
+   proceed using the project and shared instructions.
+6. Before reporting completion, verify that actual tool calls and results support compliance. A plan, acknowledgment,
+   or successful task command is not evidence that prerequisite steps were performed.
 
-Best: `/SKILLS` exists, so run `git -C /SKILLS pull --rebase`, then discover and read the applicable skill, then do the task.
-Avoid: read an existing local skill and skip the pull because its contents seem sufficient to complete the request.
+For commit tasks, find, read, and follow `write-git-commit-messages`, if available, before preparing or making the
+commit. Do not jump directly from "commit changes" to `git add` and `git commit`.
 
-Before preparing or making a Git commit, find and read the `write-git-commit-messages` skill in the locations above, if
-available.
+If a required step fails or is unsupported, report the specific failure and follow the documented recovery rules
+in the applicable skill. If cloning or updating fails, report the failure and continue with available local
+skills unless it prevents correct completion. If the selected directory has no `AGENTS.md`, report that and
+continue using project instructions and available tools. Do not silently skip steps or claim full compliance.
+Do not ask the user to reconfirm requirements already established here.
 
 ## Systemic Integrity Over Heuristic Shortcuts
 
