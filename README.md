@@ -8,6 +8,7 @@ Each skill lives in its own lowercase, hyphenated folder with a `SKILL.md` entry
 | [create-skill](create-skill/SKILL.md) | Turning a workflow or prompt into a new reusable skill. |
 | [maintain-skills](maintain-skills/SKILL.md) | Creating, updating, renaming, or reorganizing skills. |
 | [write-git-commit-messages](write-git-commit-messages/SKILL.md) | Preparing or making Git commits. |
+| [rebase-git-commit-messages](rebase-git-commit-messages/SKILL.md) | Rewriting existing commit messages through a non-interactive rebase. |
 | [maintain-code](maintain-code/SKILL.md) | Inspecting, modifying, refactoring, or debugging code. |
 | [write-project-documentation](write-project-documentation/SKILL.md) | Writing README files or API documentation. |
 | [write-unit-tests](write-unit-tests/SKILL.md) | Testing business logic with isolated dependencies. |

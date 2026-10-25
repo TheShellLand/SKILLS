@@ -1,0 +1,96 @@
+---
+name: rebase-git-commit-messages
+description: Rewrite existing Git commit messages with a scripted, non-interactive rebase. Use for rewording one or more commits while preserving their changes and order.
+---
+
+# Rebase Git Commit Messages
+
+Rewrite only the requested messages. Creating this skill or drafting replacement messages does not authorize rewriting
+the current repository. When the user requests the rewrite, carry it through within that scope without repeatedly
+asking for confirmation. Publishing rewritten history is a separate action.
+
+## Inspect and Prepare
+
+- Read the target repository's instructions and [write-git-commit-messages](../write-git-commit-messages/SKILL.md).
+  Inspect each selected commit's full message and diff, rather than the current working-tree diff, to draft its
+  replacement.
+  Preserve meaningful trailers and issue references unless the request changes them.
+- Inspect status, the current branch, and the commit graph. Resolve requested commits to full object IDs and identify
+  the oldest selected commit and the affected descendants through `HEAD`. Ask for a missing target or ambiguous range
+  only when it cannot be inferred from the request.
+- Require a clean index and working tree and no existing rebase, merge, or cherry-pick in progress. Do not automatically
+  stash, discard changes, or abort somebody else's operation. Report the blocking state so it can be resolved.
+- Record the original tip and create a uniquely named backup ref before rewriting. Save the affected commits' trees,
+  parent relationships, author identities/dates, and full messages so verification can compare old and new history.
+  Keep temporary files outside the working tree until verification succeeds or recovery finishes.
+- Explain that selected commits and their descendants receive new IDs. Check whether remote-tracking refs contain the
+  affected commits; mention shared-history implications when relevant. Do not infer permission to push from permission
+  to rewrite locally. Rewriting also invalidates existing commit signatures; follow any repository signing requirements.
+
+## Script the Rebase
+
+Use Git's interactive-rebase machinery with a scripted sequence editor so no editor or terminal interaction is needed.
+For a linear range, start immediately before the oldest selected commit; use `--root` if it is the root commit.
+Do not use `HEAD~N` unless the selected range actually establishes that count.
+
+1. Write each complete replacement message into its own UTF-8 file with real line breaks. Use a file-writing tool or
+   quoted heredoc so message text, backticks, and dollar signs cannot become shell code.
+2. Generate a todo containing every affected commit, oldest first, as `pick <full-original-id>`. Immediately after each
+   selected commit, add an `exec` command that amends the current commit from its corresponding message file:
+
+   ```text
+   pick <full-original-id> Original subject
+   exec git -c core.hooksPath=/dev/null commit --amend --only --allow-empty -F '/absolute/path/to/message.txt'
+   ```
+
+   The identifiers and path above are illustrative; substitute inspected IDs and shell-quoted absolute paths.
+   `--only` keeps staged changes out of the amendment and `--allow-empty` preserves intentionally empty commits.
+   Disable hooks only for these message amendments, where hooks could mutate staged content; if repository policy
+   requires hooks, honor it and verify they do not change content. Do not change persistent Git configuration.
+3. Create an executable sequence-editor script that copies the prepared todo to the filename Git passes as `$1`.
+   Quote paths for both shell layers: Git invokes the editor command through a shell, and `exec` lines are shell
+   commands.
+   Never interpolate replacement message text into either script.
+4. Run with command-scoped editor variables, using the actual prepared editor path:
+
+   ```sh
+   GIT_SEQUENCE_EDITOR="<shell-quoted-editor-path>" GIT_EDITOR=true \
+     git rebase -i --keep-empty --empty=keep --no-autosquash --no-update-refs <base>
+   ```
+
+   Replace `<base>` with the parent of the oldest selected commit or `--root`. `--no-update-refs` prevents configured
+   automatic updates to other branches. Explicitly disable any configured automatic stashing for this operation.
+   Check locally supported options before running; do not silently drop preservation options on older Git versions.
+
+Do not use `reword` with `GIT_EDITOR=true`: it accepts the old message without providing a replacement. Do not use a
+global editor setting or an unrestricted search-and-replace across history.
+
+### Merge History
+
+Inspect the entire affected range for merges. A flat `pick` list drops merge topology, so never apply it to such a
+range.
+Use `--rebase-merges` with a scripted editor that preserves Git's generated `label`, `reset`, and `merge` commands.
+Match selected ordinary commits by their original IDs and insert the amendment after their `pick`; for selected merge
+commits, insert it after their `merge -C <original-id>` command. Keep `-C` to avoid opening a merge-message editor.
+Validate all selected commits matched exactly once before allowing the rebase to begin. Merge recreation can change
+resolutions; compare every recreated tree and parent relationship, and abort if message-only preservation fails.
+
+## Handle Stops and Verify
+
+If a command fails, inspect Git's state before retrying. Do not blindly repeat the rebase, skip commits, or resolve
+content conflicts as part of a message-only request. Abort the rebase started by this workflow if preservation cannot
+be guaranteed, and report the reason. If an amendment failed, do not assume `rebase --continue` reruns that command;
+verify and perform the intended amendment before continuing with the same command-scoped editor environment.
+
+After success, compare the original range with the rewritten range in order. Require the same commit count, trees,
+author identities/dates, and topology (mapping old parent IDs to new IDs). Require exact replacement messages for
+selected commits and unchanged messages for all others. Also require the same tip tree and a clean worktree.
+Committer metadata and IDs normally change. A tip-only diff is insufficient: it can hide changed intermediate commits.
+
+If verification fails after completion, retain the backup ref and report the mismatch. Restore only the history this
+workflow changed, after checking for intervening work; never blindly run `reset --hard`.
+
+Report the old-to-new IDs and subjects for rewritten messages, verification results, and the backup ref for recovery.
+Remove temporary files after successful verification, but retain the backup ref. Do not push unless authorized; when
+publishing is requested, inspect the remote tip and use an explicit expected-value `--force-with-lease` for the intended
+branch rather than an unconditional force push.
