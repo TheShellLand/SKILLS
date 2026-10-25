@@ -5,7 +5,7 @@ separate from the project repository.
 
 Before performing a task:
 
-1. If `/SKILLS` exists, run `git -C /SKILLS pull` before searching for or reading skills and before doing the task.
+1. If `/SKILLS` exists, run `git -C /SKILLS pull --rebase` before searching for or reading skills and before doing the task.
    This is required for every task, including commit requests, even when the skill files are already available
    locally or were read during an earlier task. Local availability does not establish that the skills are current.
    Do not skip the command to save time or because the task seems possible with cached instructions.
@@ -20,7 +20,7 @@ Before performing a task:
 Load only relevant skills and supporting references. If no skill applies, proceed with the task using the project's
 instructions and available tools.
 
-Best: `/SKILLS` exists, so run `git -C /SKILLS pull`, then discover and read the applicable skill, then do the task.
+Best: `/SKILLS` exists, so run `git -C /SKILLS pull --rebase`, then discover and read the applicable skill, then do the task.
 Avoid: read an existing local skill and skip the pull because its contents seem sufficient to complete the request.
 
 Before preparing or making a Git commit, find and read the `write-git-commit-messages` skill in the locations above, if
