@@ -3,6 +3,9 @@
 Reusable agent skills may be available in the current directory or installed in `/SKILLS`, an absolute directory
 separate from the project repository.
 
+`/SKILLS` is a Git repository. When that directory exists, run Git commands against it directly; do not check for
+a `.git` folder or otherwise verify that it is a repository before running the required pull.
+
 Before performing a task:
 
 1. If `/SKILLS` exists, run `git -C /SKILLS pull --rebase` before searching for or reading skills and before doing the task.
