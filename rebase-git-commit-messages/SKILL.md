@@ -9,6 +9,29 @@ Rewrite only the requested messages. Creating this skill or drafting replacement
 the current repository. When the user requests the rewrite, carry it through within that scope without repeatedly
 asking for confirmation. Publishing rewritten history is a separate action.
 
+## Systemic Integrity Over Heuristic Shortcuts
+
+The prescribed workflow is part of correctness. Follow every applicable requirement in this skill and the referenced
+commit-message skill; general Git habits are not grounds for skipping or replacing a required step. These requirements
+encode this environment's terminal constraints, message conventions, preservation checks, and recovery safeguards.
+A rewrite that produces the desired subject but bypasses those requirements is not a compliant completion.
+
+Before changing history, identify the applicable workflow and its required preparation, execution, and verification
+steps. Use the bundled helper for one selected commit in a linear range; use the scripted procedure below for multiple
+selected commits or merges. Do not substitute an editor-driven `git rebase -i`, a standalone `git commit --amend`, or
+reset-and-recommit because it is familiar, shorter, or commonly recommended. The scripted `git rebase -i` invocation
+specified below remains required where applicable.
+
+Execute the applicable steps without asking the user to reconfirm requirements already established here. If a required
+step is unsupported, fails, or conflicts with a higher-priority instruction or an explicit user override, report the
+specific constraint and follow the recovery guidance; do not silently invent an alternative or claim full compliance.
+Before reporting completion, check tool evidence against every applicable requirement, including message format and
+history preservation. Git success alone does not establish compliance.
+
+Best: inspect the target commit, select the required message format, run the prescribed scripted workflow, and verify
+the stored message and every affected commit. Avoid: defaulting to a familiar interactive reword procedure because
+the skill's multi-step workflow seems unnecessarily complex.
+
 ## Execute the Requested Work
 
 When asked to fix or reword a commit, use the available tools to inspect, rewrite, and verify it during this task.
