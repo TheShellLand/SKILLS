@@ -77,3 +77,11 @@ establish compliance: check the format and required body too.
 
 Pass multiline messages with actual line breaks. Prefer a message file with `git commit -F`; avoid literal `\n`
 separators.
+
+Create each commit with its complete message in one operation. Use `git commit --amend` only when the user requests
+an amendment or a specific problem with the existing commit needs correction; do not append it routinely after
+creating a commit. Inspect any commit error before choosing a recovery action or changing the message format.
+
+Best: prepare the complete message in a file, then run `git commit -F <message-file>`.
+Avoid: `git commit -m "[docs] Update instructions" && git commit --amend || echo "Commit failed, trying alternative format."`.
+This opens an unnecessary editor after success and claims a recovery action without performing one.

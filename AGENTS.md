@@ -36,3 +36,5 @@ available.
 - Use `&&` when the next command requires the previous command to succeed.
 - Use `;` only when commands should run independently.
 - For multiline scripts or content, use a file-writing tool, then execute the saved file.
+- If a command fails, inspect the error before choosing a recovery action. Status messages must describe actions
+  actually performed.
