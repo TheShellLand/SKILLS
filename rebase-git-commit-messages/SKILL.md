@@ -19,6 +19,10 @@ limitation and distinguish any drafted message from an applied change. Never cla
 ## Inspect and Prepare
 
 - Read the target repository's instructions and [write-git-commit-messages](../write-git-commit-messages/SKILL.md).
+  Complete that skill's repository-root comparison and format selection before drafting replacements. Rewriting an
+  existing message uses the same convention as creating a commit; the old message is not evidence of the required
+  format. In this skill-library repository, select Format A even if the existing subject uses Conventional Commits
+  or the checkout has another name, such as `brain`. Do not fall back to Format B because Git accepted the old message.
   Inspect each selected commit's full message and diff, rather than the current working-tree diff, to draft its
   replacement.
   Ground the subject and body in `git show --format=fuller <commit>` and the actual patch. Preserve exact filenames,
@@ -130,6 +134,15 @@ After success, compare the original range with the rewritten range in order. Req
 author identities/dates, and topology (mapping old parent IDs to new IDs). Require exact replacement messages for
 selected commits and unchanged messages for all others. Also require the same tip tree and a clean worktree.
 Committer metadata and IDs normally change. A tip-only diff is insufficient: it can hide changed intermediate commits.
+
+Read each selected commit's stored full message with `git show -s --format=%B <new-id>` and check its subject and
+required body against the selected convention. The helper verifies that Git stored the supplied replacement; it
+does not decide whether that replacement follows the repository's message rules. A successful Git command or clean
+`git status` proves neither message compliance nor completion of a requested correction.
+
+Best: for this library, verify `[skills] Clarify rebase instructions and safety checks`, a blank line, and an
+explanatory body in the rewritten commit. Avoid: accepting `docs(skills): clarify rebase instructions and safety
+checks` because the rebase succeeded and the worktree is clean.
 
 If verification fails after completion, retain the backup ref and report the mismatch. Restore only the history this
 workflow changed, after checking for intervening work; never blindly run `reset --hard`.
