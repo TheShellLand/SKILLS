@@ -8,8 +8,7 @@ Before performing a task:
 1. If `/SKILLS` exists, run `git -C /SKILLS pull` to update the skills repository.
 2. Recursively search the current directory for `SKILL.md` files. Also search `/SKILLS` recursively if that directory
    exists.
-3. Use the skills' frontmatter names and descriptions to identify skills relevant to the task. `/SKILLS/README.md`,
-   when present, provides an optional discovery index.
+3. Use the skills' frontmatter names and descriptions to identify skills relevant to the task.
 4. Read and follow the applicable skills before proceeding. Resolve their relative references from the directory
    containing the skill's `SKILL.md`.
 
