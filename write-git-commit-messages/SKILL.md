@@ -15,6 +15,8 @@ The target repository is the repository receiving the commit. Identify it before
 1. Run `git rev-parse --show-toplevel` in the directory receiving the commit to get the target repository root.
 2. Run `git -C <skill-directory> rev-parse --show-toplevel`, replacing `<skill-directory>` with the actual directory
    containing this `SKILL.md`, to get the skill-library repository root. Compare resolved absolute paths.
+   **If the roots match, select Format A immediately.** This file supplies the explicit convention; `AGENTS.md`
+   does not need to repeat it. Skip the remaining selection steps and write the message using Format A.
 3. If the roots differ, read the target repository's applicable instructions and commit guidance before selecting
    a format. Do not infer a convention from the repository's name or working directory alone.
 
@@ -31,6 +33,12 @@ Select the first matching rule below, then stop selecting:
 Example: if the target root is `/root/brain` and the skill-library root is `/SKILLS`, they are different repositories.
 Read `/root/brain`'s applicable instructions. Use its explicit convention if present; otherwise use Format B.
 If both roots are `/root/brain`, use Format A even though the directory is named `brain`.
+
+Best: committing in `/root/brain` with this skill at `/root/brain/write-git-commit-messages/SKILL.md` means Format A.
+Use `[skills] Clarify commit format selection` followed by a blank line and an explanatory body.
+Avoid: selecting Format B because `/root/brain/AGENTS.md` only links to this skill. The link does not cancel this
+skill's explicit Format A convention for its own repository. Do not guess conventions from an organization name
+or speculate about what people usually want.
 
 ## Format A: This skill-library repository
 
