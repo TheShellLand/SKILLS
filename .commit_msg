@@ -1,3 +1,0 @@
-[skills] Update required workflow instructions in AGENTS.md
-
-Restructured the preparation steps into a numbered list and added explicit requirements for skill discovery and execution to ensure systemic integrity over heuristic shortcuts. Included specific handling for git commit tasks and forced rebase of skills if /SKILLS directory is present.
