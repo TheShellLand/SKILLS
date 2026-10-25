@@ -9,11 +9,22 @@ Rewrite only the requested messages. Creating this skill or drafting replacement
 the current repository. When the user requests the rewrite, carry it through within that scope without repeatedly
 asking for confirmation. Publishing rewritten history is a separate action.
 
+## Execute the Requested Work
+
+When asked to fix or reword a commit, use the available tools to inspect, rewrite, and verify it during this task.
+A proposed message, a command block, or a statement such as "I am performing a rebase" does not complete the request.
+Keep progress updates brief and continue to tool execution. If execution is unavailable or blocked, state the exact
+limitation and distinguish any drafted message from an applied change. Never claim a rebase ran without tool evidence.
+
 ## Inspect and Prepare
 
 - Read the target repository's instructions and [write-git-commit-messages](../write-git-commit-messages/SKILL.md).
   Inspect each selected commit's full message and diff, rather than the current working-tree diff, to draft its
   replacement.
+  Ground the subject and body in `git show --format=fuller <commit>` and the actual patch. Preserve exact filenames,
+  directory names, and commands: `/SKILLS` is a directory, not `/SKILLS.md`. Do not invent changes, motivations, or
+  synchronization behavior from the old subject alone. Write the full message as commit text, without `Subject:` or
+  `Body:` labels or literal `\n` separators.
   Preserve meaningful trailers and issue references unless the request changes them.
 - Inspect status, the current branch, and the commit graph. Resolve requested commits to full object IDs and identify
   the oldest selected commit and the affected descendants through `HEAD`. Ask for a missing target or ambiguous range
@@ -28,6 +39,27 @@ asking for confirmation. Publishing rewritten history is a separate action.
   to rewrite locally. Rewriting also invalidates existing commit signatures; follow any repository signing requirements.
 
 ## Script the Rebase
+
+For one selected commit in a linear range, use the bundled
+[reword-commit.sh](scripts/reword-commit.sh) after completing the inspection above. Run from the target repository:
+
+```sh
+message_file=$(mktemp)
+cat > "$message_file" <<'MESSAGE'
+[component] Describe the inspected change
+
+Explain what the actual commit changed and why.
+MESSAGE
+bash /absolute/path/to/rebase-git-commit-messages/scripts/reword-commit.sh COMMIT "$message_file"
+```
+
+Replace the example text, helper path, and `COMMIT` with inspected values, then execute the command through tools.
+The helper creates a backup, supplies the rebase todo through `GIT_SEQUENCE_EDITOR`, and amends the selected commit
+through an `exec` step. It verifies each replayed tree, author, and message and prints actual old-to-new IDs.
+It supports root and empty commits; it rejects dirty worktrees, existing operations, detached HEAD, shallow clones,
+and merge-containing ranges. It retains hooks and repository signing settings; inspect those first if they require
+interaction. It aborts its own failed rebase and retains recovery files on failure. It never pushes.
+Delete the input message file after success. For multiple selected commits or merges, use the procedure below.
 
 Use Git's interactive-rebase machinery with a scripted sequence editor so no editor or terminal interaction is needed.
 For a linear range, start immediately before the oldest selected commit; use `--root` if it is the root commit.
@@ -91,6 +123,8 @@ If verification fails after completion, retain the backup ref and report the mis
 workflow changed, after checking for intervening work; never blindly run `reset --hard`.
 
 Report the old-to-new IDs and subjects for rewritten messages, verification results, and the backup ref for recovery.
+Obtain the new IDs from Git after completion; never infer them. If no rewrite completed, explicitly say so instead of
+presenting the proposed message as the result.
 Remove temporary files after successful verification, but retain the backup ref. Do not push unless authorized; when
 publishing is requested, inspect the remote tip and use an explicit expected-value `--force-with-lease` for the intended
 branch rather than an unconditional force push.
