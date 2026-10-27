@@ -1,12 +1,30 @@
 ---
 name: fix-git-commit-identity
-description: Correct the author or committer name and email on the latest Git commit, or identity text in its message, using a deterministic Bash helper.
+description: Fix a wrong username, name, email, author, or committer on a Git commit, including requests to fix the username and email in a commit message. Prefer this skill over rebase-git-commit-messages for identity corrections. The Bash helper repairs HEAD metadata and identity text or trailers.
 ---
 
 # Fix Git Commit Identity
 
 Use this skill when a user asks to fix a username, name, email, author, or committer on a commit.
 Creating this skill does not authorize changing the current repository's history.
+
+## Select this workflow for identity corrections
+
+Select by the requested correction, even when the user calls author information a "commit message".
+For a username, name, or email correction, use this skill first. Inspect the stored metadata and message to
+determine which contains the wrong identity; do not assume the wording requires rewording or rebasing.
+
+| Request | Workflow |
+| --- | --- |
+| "Fix the username and email in the commit message" | This skill; inspect metadata and message, then correct the affected identity fields. |
+| "Change the last commit's author to Correct Name <correct@example.com>" | This skill with `--role author`. |
+| "Fix the email in Co-authored-by" | This skill with `--message-file`, preserving unrelated message text. |
+| "Rewrite the subject to explain the bug fix" | `rebase-git-commit-messages`; this is general message rewording. |
+
+For a supported HEAD correction, run the bundled helper rather than generating a rebase or substituting
+`reword-commit.sh`. An older target remains an identity correction: report the helper's HEAD-only limit rather
+than routing to a message-only helper that preserves the incorrect author. A request to reword other message
+content as well as fix identity requires both workflows within their supported scope.
 
 ## Identify the correction
 

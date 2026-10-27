@@ -1,9 +1,18 @@
 ---
 name: rebase-git-commit-messages
-description: Rewrite existing Git commit messages with a scripted, non-interactive rebase. Use for rewording one or more commits while preserving their changes and order.
+description: Reword Git commit subjects and explanatory bodies with a scripted, non-interactive rebase while preserving author identity. For username, name, email, author, committer, or identity-trailer corrections, select fix-git-commit-identity instead, even if the user says commit message.
 ---
 
 # Rebase Git Commit Messages
+
+## Route identity corrections first
+
+If the requested correction concerns a username, name, email, author, committer, or identity trailer, read and
+follow [fix-git-commit-identity](../fix-git-commit-identity/SKILL.md) first. This includes "fix the username and
+email in the commit message". Inspect whether the incorrect identity is in metadata or literal message text.
+The single-commit reword helper preserves author identity, so it cannot repair incorrect author metadata.
+Use this rebase workflow for general subject/body rewording; its requirements below apply to that scope.
+Do not use it as a fallback when an identity correction exceeds the identity helper's supported scope.
 
 Rewrite only the requested messages. Creating this skill or drafting replacement messages does not authorize rewriting
 the current repository. When the user requests the rewrite, carry it through within that scope without repeatedly
