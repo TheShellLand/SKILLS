@@ -103,6 +103,17 @@ Avoid: substituting a familiar shortcut because the skill's workflow seems unnec
 
 When a project or shared directory provides specialized helper scripts (e.g., in /scripts/), prioritize executing these tools exactly as documented. Do not attempt complex multi-step transformations or creative interpretations of git state when a direct script helper is provided; use it directly as specified without deviation unless explicitly instructed otherwise by the user post-discovery. Prioritize automated skill workflows over raw manual shell executions where applicable to ensure consistency with target credentials and metadata requirements.
 
+## File Editing Rules
+
+When editing files, use actual line breaks for paragraphs and multiline content. Never insert literal `\n` or
+`\r\n` characters as substitutes for real newlines.
+
+Use a file-editing tool for multiline changes. After editing, inspect the diff and verify that formatting is
+preserved.
+
+If you find accidental literal newline escapes in prose, replace them with actual line breaks. Preserve
+intentional escapes in code, JSON, regular expressions, and examples—do not perform a blind global replacement.
+
 ## Terminal Command Rules
 
 - Run Bash scripts with `bash /path/to/script.sh`, not `./script.sh` or a bare script path. For POSIX shell
