@@ -101,7 +101,11 @@ Avoid: substituting a familiar shortcut because the skill's workflow seems unnec
 
 ## Script Adherence Rule
 
-When a project or shared directory provides specialized helper scripts (e.g., in /scripts/), prioritize executing these tools exactly as documented. Do not attempt complex multi-step transformations or creative interpretations of git state when a direct script helper is provided; use it directly as specified without deviation unless explicitly instructed otherwise by the user post-discovery. Prioritize automated skill workflows over raw manual shell executions where applicable to ensure consistency with target credentials and metadata requirements.
+When a project or shared directory provides specialized helper scripts (e.g., in /scripts/), prioritize executing these
+tools exactly as documented. Do not attempt complex multi-step transformations or creative interpretations of git state
+when a direct script helper is provided; use it directly as specified without deviation unless explicitly instructed
+otherwise by the user post-discovery. Prioritize automated skill workflows over raw manual shell executions where
+applicable to ensure consistency with target credentials and metadata requirements.
 
 ## File Editing Rules
 
