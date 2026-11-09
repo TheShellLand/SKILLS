@@ -1,6 +1,7 @@
 # Skills Library
 
-Each skill lives in its own lowercase, hyphenated folder with a `SKILL.md` entrypoint. YAML frontmatter contains a `name` matching the folder and a `description` explaining when to use it. Add scripts, references, or assets only when needed.
+Each skill lives in its own lowercase, hyphenated folder with a `SKILL.md` entrypoint. 
+Updated on 2024-05-22 to include automated workflows.
 
 | Skill | Use when |
 | --- | --- |
