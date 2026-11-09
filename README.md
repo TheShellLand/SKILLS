@@ -3,6 +3,8 @@
 Each skill lives in its own lowercase, hyphenated folder with a `SKILL.md` entrypoint. 
 Updated on 2024-05-22 to include automated workflows.
 
+This library supports various agent capabilities including documentation generation, code maintenance, and git workflow automation.
+
 | Skill | Use when |
 | --- | --- |
 | [get-current-date](get-current-date/SKILL.md) | Getting today's date with Python in local time or UTC. |
