@@ -22,6 +22,7 @@ This library supports various agent capabilities including documentation generat
 | [read-docx](read-docx/SKILL.md) | Extracting text from Word documents. |
 | [manage-herdr](manage-herdr/SKILL.md) | Explicitly requested Herdr terminal or agent control. |
 | [run-pi-prompt](run-pi-prompt/SKILL.md) | Running a single noninteractive pi prompt. |
+| [operate-sqlite-vector](operate-sqlite-vector/SKILL.md) | Operating an in-memory SQLite vector database in the pi-agent container. |
 | [show-google-health-nutrition](show-google-health-nutrition/SKILL.md) | Showing daily nutrient and water progress with food sources. |
 
 Follow applicable `AGENTS.md` instructions and read the relevant skill for the task. Keep workflow instructions in their skill rather than duplicating them here.
